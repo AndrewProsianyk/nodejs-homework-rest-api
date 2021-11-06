@@ -2,19 +2,7 @@ const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
 
-// mongoose.connect(DB_HOST, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// }).then(async () => {
-//   try {
-//     const result = await Contact.create(newContact)
-//     console.log(result)
-//   } catch (error) {
-//     console.log(error.message)
-//   }
-// }).catch(error => {
-//   console.log(error.message)
-// })
+const authRouter = require("./routes/api/auth");
 const contactsRouter = require('./routes/api/contacts')
 
 const app = express()
@@ -25,6 +13,7 @@ app.use(logger(formatsLogger))
 app.use(cors())
 app.use(express.json())
 
+app.use('/api/auth/users', authRouter);
 app.use('/api/contacts', contactsRouter)
 
 app.use((req, res) => {
